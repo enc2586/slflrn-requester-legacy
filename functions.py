@@ -129,7 +129,7 @@ def seatinfo(id, pw, rmid, pd, date):
 # 실패 시 음수 return
 
 
-def gettcrlst(id, pw):
+def getTeacherInfo(id, pw):
     usr_data = {
         "id": id,
         "password": pw,
@@ -162,7 +162,7 @@ def gettcrlst(id, pw):
 
 # {'이름': {'floor': '층', 'maxppl': '최대인원', 'tcher': '담당교사', 'id': '교샤id'}} dict return
 # 실패 시 음수 return
-def getrminfo(id, pw):
+def getRoomInfo(id, pw):
     usr_data = {
         "id": id,
         "password": pw,
@@ -203,15 +203,10 @@ def getrminfo(id, pw):
 # 신청 현황 dictionary return
 # 실패 시 음수 return
 
-
-def getlrninfo(id, pw, date):
+def isCredentialValid(id, pw):
     usr_data = {
         "id": id,
         "password": pw,
-    }
-
-    form_data = {
-        "searchSgnId": date,
     }
 
     with req.session() as sess:
@@ -220,51 +215,12 @@ def getlrninfo(id, pw, date):
         login_chk = tidy(pgdata_raw.li.get_text())
 
         if login_chk == "선생님은 가입해주세요.":
-            return -1
+            return False
+        else:
+            return True
 
-        res = sess.get(LRNSTAT_URL, params=form_data)
-        pgdata_raw = BeautifulSoup(res.content.decode('utf-8'), "html.parser")
 
-        lrnlst = pgdata_raw.select(
-            'div.custom-list.mt-3 > div > table > tbody > tr')
+id = "enc2586"
+pw = "rhkgkrrh1!"
 
-        lrndetail = []
-        for item in lrnlst:
-            datas = item.select('td')
-            lrndetail.append(datas)
-
-        lrndetail[0].pop(0)  # 전체학습 신청버튼 부분
-
-        lrnstat = {}
-        for item in lrndetail:
-            item = list(map(str, item))
-            for index in BS_PROCESS:
-                item[index] = BeautifulSoup(item[index], 'html.parser')
-
-            pd = ''.join(numbers.findall(item[0]))
-
-            site = item[1].select_one('input')['value']
-            area = site[site.find('[')+1:site.find(']')]
-            room = tidy(site[site.find(']')+1:])
-
-            act = item[3].select_one('option[selected=""]').get_text()
-            content = item[4].select_one('input')['value']
-
-            rawSerial = item[5].select_one('a')['href']
-            serial = rawSerial[rawSerial.find('=')+1:]
-
-            authchk = tidy(item[6].get_text())
-            auth = True if authchk == '승인' else False
-
-            lrnconfig = {
-                "area": area,
-                "room": room,
-                "act": act,
-                "content": content,
-                "serial": serial,
-                "auth": auth,
-                "overlapped": lrnstat[pd]['overlapped']+1 if pd in lrnstat else 0,
-            }
-            lrnstat[pd] = lrnconfig
-
-        return lrnstat
+print(getTeacherInfo(id, pw))
