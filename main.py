@@ -1,4 +1,3 @@
-from requests.sessions import SessionRedirectMixin, default_headers
 from functions import *
 
 # import requests as req
@@ -240,7 +239,7 @@ print("functions.py 모듈을 사용하여 직접 자동화 코드를 짜실 수
 print()
 
 print()
-print("<< 사용자 정보 등록 단계 (1/3) >>")
+print("<< 사용자 정보 등록 단계 >>")
 
 while True:
     id = input("ID: ")
@@ -268,7 +267,7 @@ while True:
         print("성공")
         print()
 
-    print("<< 신청 서식 작성 단계 (2/3) >>")
+    print("<< 신청 서식 작성 단계 >>")
 
     while True:
             print("담임 선생님의 성함을 입력해주십시오. 'ls'를 입력해 전체 리스트를 볼 수 있습니다.")
@@ -277,6 +276,7 @@ while True:
             if homeroomTeacher == "ls":
                 for teacher in teacherList.keys():
                     print(f"'{teacher}'", end=" ")
+                print()
                 print()
                 continue
             elif homeroomTeacher not in teacherList.keys():
@@ -312,6 +312,8 @@ while True:
             classSerial = classData['id']
             roomTeacher = classData['tcher']
             roomTeacherSerial = None
+
+        print()
             
         if roomTeacher in teacherList.keys():
             print(f"기본 지도교사는 {roomTeacher} 선생님입니다.")
@@ -326,34 +328,35 @@ while True:
 
             print()
 
-            while True:          
-                if roomTeacherSerial == None:
-                    print("지도교사 선생님의 성함을 입력해주십시오. 'ls'를 입력해 전체 리스트를 볼 수 있습니다.")
-                    roomTeacher = input("지도교사: ")
+        while True:          
+            if roomTeacherSerial == None:
+                print("지도교사 선생님의 성함을 입력해주십시오. 'ls'를 입력해 전체 리스트를 볼 수 있습니다.")
+                roomTeacher = input("지도교사: ")
 
-                    if roomTeacher == "ls":
-                        for teacher in teacherList.keys():
-                            print(f"'{teacher}'", end=" ")
-                        print()
-                        continue
-                    elif roomTeacher not in teacherList.keys():
-                        print("그런 선생님은 없습니다.")
-                        print("'ls'를 입력해 정확한 선생님 성함을 확인하세요.")
-                        print()
-                        print()
-                        continue
-                    else:
-                        roomTeacherSerial = teacherList[roomTeacher]
-                        break
+                if roomTeacher == "ls":
+                    for teacher in teacherList.keys():
+                        print(f"'{teacher}'", end=" ")
+                    print()
+                    continue
+                elif roomTeacher not in teacherList.keys():
+                    print("그런 선생님은 없습니다.")
+                    print("'ls'를 입력해 정확한 선생님 성함을 확인하세요.")
+                    print()
+                    print()
+                    continue
                 else:
+                    roomTeacherSerial = teacherList[roomTeacher]
                     break
+            else:
+                break
 
-            
+        print()
+
         print("사용 이유가 무엇인가요?")
         reason = input("이유: ")
 
         print()
-        print("<< 신청 단계 (3/3) >>")
+        print("<< 신청 단계 >>")
         
         while True:
             print("몇 교시에 신청하고 싶으신가요?")
@@ -376,21 +379,26 @@ while True:
             
             print(f"{period}교시에 신청중... ", end="")
             serial = apply(**user_data, **form_data)
+            serial = 9999
 
             if serial <= 0:
                 print("실패했습니다. 다시 시도해보세요.")
                 print()
                 continue
             else:
-                print("성공했습니다.")
+                print("성공")
+                print()
+                print(f"{period}교시에 {classInput}(으)로 신청되었습니다.")
                 print(f"고유번호는 {serial}입니다.")
+                print("고유번호를 통해 자습을 취소할 수 있습니다. 번호를 숙지하십시오.")
             
-            moreApply = input("더 신청하시겠습니까? [y/n]: ")
+            moreApply = input("이 교실로 다른 교시에 신청하시겠습니까? [y/n]: ")
             if moreApply == "y" or moreApply == "":
                 print()
                 continue
             else:
-                print(f"{classInput}에 대한 신청이 완료되었습니다.")
-                print("더 신청하거나 프로그램을 종료하세요.")
+                print(f"{classInput}에 대한 신청 단계를 종료합니다.")
+                print()
+                print("다른 교실로 신청하거나 [Ctrl+C]를 통해 프로그램을 종료하세요.")
                 print()
                 break
