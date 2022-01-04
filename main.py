@@ -425,7 +425,6 @@ if taskMode == "신청":
             
             print(f"{period}교시에 신청중... ", end="")
             serial = apply(**user_data, **form_data)
-            serial = 9999
 
             if serial <= 0:
                 print("실패했습니다. 다시 시도해보세요.")
