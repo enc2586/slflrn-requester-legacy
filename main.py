@@ -236,7 +236,7 @@ from functions import *
 #                                                 #
 #  If the code does not work due to some sort of  #
 #  FUNCTION ERROR, then UNATTONATE the commented  #
-#  codes up there(between line NO.3 ~ 222). If    #
+#  codes up there(between line NO.7 ~ 226). If    #
 #  it still does not work, then try opening your  #
 #  terminal(cmd, powershell, etc. ) DIRECTLY in   #
 #  the same directory of this 'main.py' and the   #
