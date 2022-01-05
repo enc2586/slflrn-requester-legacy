@@ -1,3 +1,4 @@
+from datetime import datetime
 from functions import *
 
 # 이 파일을 곧바로 실행해서 사용하실 수 있습니다
