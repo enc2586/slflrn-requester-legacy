@@ -19,7 +19,6 @@ numbers = re.compile('\d')
 def _tidy(str):
     strList = str.split()
     result = " ".join(strList)
-
     return result
 
 
