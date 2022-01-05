@@ -4,7 +4,6 @@ from datetime import datetime
 import re
 import json
 
-# const definition
 SIGNIN_URL = "http://academic.petapop.com/sign/actionLogin.do"
 APPLY_URL = "http://academic.petapop.com/self/requestSelfLrn.do"
 CANCEL_URL = "http://academic.petapop.com/self/deleteSelfLrn.do"
@@ -23,9 +22,6 @@ def tidy(str):
     result = " ".join(strList)
 
     return result
-
-# 성공 시 시리얼번호 return
-# 실패 시 음수 return
 
 
 def apply(id, pw, rtcr, ctcr, room, pd, date, act, cont):
@@ -61,9 +57,6 @@ def apply(id, pw, rtcr, ctcr, room, pd, date, act, cont):
         else:
             return -2
 
-# 성공 시 True return
-# 실패 시 음수 return
-
 
 def cancel(id, pw, serial):
     usr_data = {
@@ -91,9 +84,6 @@ def cancel(id, pw, serial):
 
         else:
             return -2
-
-# 특정 특별실 잔여인원 return
-# 실패 시 음수 return
 
 
 def getAvailableSeatCount(id, pw, rmid, pd, date):
@@ -124,9 +114,6 @@ def getAvailableSeatCount(id, pw, rmid, pd, date):
 
         else:
             return -2
-
-# {'선생님': 'id'} dict return
-# 실패 시 음수 return
 
 
 def fetchTeacherID(id, pw):
@@ -160,8 +147,6 @@ def fetchTeacherID(id, pw):
         return tcr
 
 
-# {'이름': {'floor': '층', 'maxppl': '최대인원', 'tcher': '담당교사', 'id': '교샤id'}} dict return
-# 실패 시 음수 return
 def fetchClassInfo(id, pw):
     usr_data = {
         "id": id,
@@ -200,9 +185,6 @@ def fetchClassInfo(id, pw):
 
         return rmlst
 
-# 신청 현황 dictionary return
-# 실패 시 음수 return
-
 def isCredentialValid(id, pw):
     usr_data = {
         "id": id,
@@ -218,62 +200,4 @@ def isCredentialValid(id, pw):
             return False
         else:
             return True
-
-# usr_data = {
-#     'id': 'enc2586',
-#     'pw': 'rhkgkrrh1!',
-# }
-
-
-# # 코드 사용시
-# # 이런 식으로 사용해보시죠
-
-# # 앞에 ** 을 붙이면
-# # dictionary를 풀어줍니다
-
-# # usr_data = {
-# #     'id': 'enc2586',
-# #     'pw': 'rhkgkrrh1!',
-# # }
-
-# usr_data = {
-#     'id': 'enc2586',
-#     'pw': 'rhkgkrrh1!',
-# }
-
-# datedata = {
-#     'date': '20211202'
-# }
-
-# form_data = {
-#     'rtcr': "USRCNFRM_00000000441",
-#     'ctcr': "USRCNFRM_00000000013", #지도
-#     'room': "CLSSRM_0000000000075",
-#     'pd': '3',
-#     'act': "ACT001",
-#     'cont': "세특작성",
-#     'date': datetime.now().strftime("%Y%m%d"),
-# }
-
-# # print(apply(**usr_data, **form_data))
-
-# # with open("roomData.json", "w", encoding='utf8') as f:
-# #     json.dump(gettcrlst(**usr_data), f, indent=4, ensure_ascii=False)
-# # roomData = json.loads(getrminfo(**usr_data))
-
-# # print(getrminfo(**usr_data))
-
-# print(apply(**usr_data, **form_data))
-# # print(gettcrlst(**usr_data))
-
-# # print(cancel('gungun625', 'spqjqldnlsj0625;', 136972))
-
-
-# # 수1실:  CLSSRM_00000000000423
-# # 코딩랩: CLSSRM_0000000000075
-# # 1-3:   CLSSRM_0000000000066
-# # 합동강의실: CLSSRM_0000000000040
-
-# # 연광흠: USRCNFRM_00000000441
-# # 최승재: USRCNFRM_00000000013
-# # 김대용: USRCNFRM_00000000437
+            
