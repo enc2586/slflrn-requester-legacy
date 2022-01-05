@@ -16,7 +16,7 @@ BS_PROCESS = [1, 3, 4, 5, 6]
 numbers = re.compile('\d')
 
 
-def tidy(str):
+def _tidy(str):
     strList = str.split()
     result = " ".join(strList)
 
@@ -42,7 +42,7 @@ def apply(id, pw, rtcr, ctcr, room, pd, date, act, cont):
     with req.session() as sess:
         res = sess.post(SIGNIN_URL, data=usr_data)
         pgdata_raw = BeautifulSoup(res.content.decode('utf-8'), "html.parser")
-        login_chk = tidy(pgdata_raw.li.get_text())
+        login_chk = _tidy(pgdata_raw.li.get_text())
 
         if login_chk == "선생님은 가입해주세요.":
             return -1
@@ -70,7 +70,7 @@ def cancel(id, pw, serial):
     with req.session() as sess:
         res = sess.post(SIGNIN_URL, data=usr_data)
         pgdata_raw = BeautifulSoup(res.content.decode('utf-8'), "html.parser")
-        login_chk = tidy(pgdata_raw.li.get_text())
+        login_chk = _tidy(pgdata_raw.li.get_text())
 
         if login_chk == "선생님은 가입해주세요.":
             return -1
@@ -100,7 +100,7 @@ def getAvailableSeatCount(id, pw, rmid, pd, date):
     with req.session() as sess:
         res = sess.post(SIGNIN_URL, data=usr_data)
         pgdata_raw = BeautifulSoup(res.content.decode('utf-8'), "html.parser")
-        login_chk = tidy(pgdata_raw.li.get_text())
+        login_chk = _tidy(pgdata_raw.li.get_text())
 
         if login_chk == "선생님은 가입해주세요.":
             return -1
@@ -124,7 +124,7 @@ def fetchTeacherID(id, pw):
     with req.session() as sess:
         res = sess.post(SIGNIN_URL, data=usr_data)
         pgdata_raw = BeautifulSoup(res.content.decode('utf-8'), "html.parser")
-        login_chk = tidy(pgdata_raw.li.get_text())
+        login_chk = _tidy(pgdata_raw.li.get_text())
 
         if login_chk == "선생님은 가입해주세요.":
             return -1
@@ -155,7 +155,7 @@ def fetchClassInfo(id, pw):
     with req.session() as sess:
         res = sess.post(SIGNIN_URL, data=usr_data)
         pgdata_raw = BeautifulSoup(res.content.decode('utf-8'), "html.parser")
-        login_chk = tidy(pgdata_raw.li.get_text())
+        login_chk = _tidy(pgdata_raw.li.get_text())
 
         if login_chk == "선생님은 가입해주세요.":
             return -1
@@ -174,7 +174,7 @@ def fetchClassInfo(id, pw):
             if not ('삭제' in name):
                 rmlst[name] = {
                     "floor": datalst[0].get_text(),
-                    "maxppl": tidy(datalst[3].get_text()),
+                    "maxppl": _tidy(datalst[3].get_text()),
                     "tcher": datalst[2].get_text(),
                     "id": datalst[4].select_one('div > input')['value'],
                 }
@@ -193,7 +193,7 @@ def isCredentialValid(id, pw):
     with req.session() as sess:
         res = sess.post(SIGNIN_URL, data=usr_data)
         pgdata_raw = BeautifulSoup(res.content.decode('utf-8'), "html.parser")
-        login_chk = tidy(pgdata_raw.li.get_text())
+        login_chk = _tidy(pgdata_raw.li.get_text())
 
         if login_chk == "선생님은 가입해주세요.":
             return False

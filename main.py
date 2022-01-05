@@ -1,13 +1,13 @@
 from datetime import datetime
 from functions import *
 
+
 # 이 파일을 곧바로 실행해서 사용하실 수 있습니다
 # 혹은 functions.py를 이용해서 파이썬을 이용한
 # 자습신청 자동화를 직접 구현하실 수도 있습니다.
 
 # import requests as req
 # from bs4 import BeautifulSoup
-# from datetime import datetime
 # import re
 # import json
 
