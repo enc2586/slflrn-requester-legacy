@@ -96,7 +96,7 @@ def cancel(id, pw, serial):
 # 실패 시 음수 return
 
 
-def seatinfo(id, pw, rmid, pd, date):
+def getAvailableSeatCount(id, pw, rmid, pd, date):
     usr_data = {
         "id": id,
         "password": pw,
@@ -129,7 +129,7 @@ def seatinfo(id, pw, rmid, pd, date):
 # 실패 시 음수 return
 
 
-def getTeacherInfo(id, pw):
+def fetchTeacherID(id, pw):
     usr_data = {
         "id": id,
         "password": pw,
@@ -162,7 +162,7 @@ def getTeacherInfo(id, pw):
 
 # {'이름': {'floor': '층', 'maxppl': '최대인원', 'tcher': '담당교사', 'id': '교샤id'}} dict return
 # 실패 시 음수 return
-def getRoomInfo(id, pw):
+def fetchClassInfo(id, pw):
     usr_data = {
         "id": id,
         "password": pw,

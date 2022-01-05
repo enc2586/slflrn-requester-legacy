@@ -275,8 +275,8 @@ user_data = {
 }
 
 print("교실 및 선생님 데이터를 받아오는 중... ", end="")
-classList = getRoomInfo(id, pw)
-teacherList = getTeacherInfo(id, pw)
+classList = fetchClassInfo(id, pw)
+teacherList = fetchTeacherID(id, pw)
 
 if type(classList) == int or type(teacherList) == int:
     print("실패")
