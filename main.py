@@ -226,18 +226,18 @@ from functions import *
 #         else:
 #             return True
 
-# 파이썬에서 직접 만든 모듈을 불러오기가 힘들군요
+
 # from functions import * 하면 제 컴퓨터에서는 되는데
 # 설정에 따라 다른 컴퓨터에서 안 되는 경우가 많습니다
 # 호환성을 위해 조금 파일이 커지더라도
 # 이 프로그램 속에 해당 함수들을 포함하기로 결정했습니다
-# 파일이 작동하지 않으면 아래 중요 공지를 읽고 조치를 취하세요
+# 파일이 작동하지 않으면 아래 공지를 읽고 조치를 취하세요
 
 ################### IMPORTANT #####################
 #                                                 #
 #  If the code does not work due to some sort of  #
 #  FUNCTION ERROR, then UNATTONATE the commented  #
-#  codes up there(between line NO.7 ~ 226). If    #
+#  codes up there(between line NO.9 ~ 228). If    #
 #  it still does not work, then try opening your  #
 #  terminal(cmd, powershell, etc. ) DIRECTLY in   #
 #  the same directory of this 'main.py' and the   #
@@ -267,7 +267,7 @@ while True:
     if not isCredentialValid(id, pw):
         print("정보가 유효하지 않습니다. 다시 입력해주십시오.")
         continue
-    
+
     break
 
 user_data = {
@@ -291,7 +291,7 @@ print("<< 작업 선택 단계 >>")
 while True:
     print("아래 나열된 선택지 중 진행할 작업을 선택해주세요.")
     print("1.신청 | 2.신청취소")
-    
+
     taskMode = input("작업: ")
     if taskMode == "1" or taskMode == "신청":
         taskMode = "신청"
@@ -304,7 +304,7 @@ while True:
         print("신청취소 모드로 진입합니다.")
         print()
         print()
-    
+
     else:
         print("정확한 작업명이나 번호를 입력해주세요.")
         print()
@@ -317,25 +317,25 @@ if taskMode == "신청":
     print("<< 신청 서식 작성 단계 >>")
 
     while True:
-            print("담임 선생님의 성함을 입력해주십시오. 'ls'를 입력해 전체 리스트를 볼 수 있습니다.")
-            homeroomTeacher = input("담임교사: ")
+        print("담임 선생님의 성함을 입력해주십시오. 'ls'를 입력해 전체 리스트를 볼 수 있습니다.")
+        homeroomTeacher = input("담임교사: ")
 
-            if homeroomTeacher == "ls":
-                for teacher in teacherList.keys():
-                    print(f"'{teacher}'", end=" ")
-                print()
-                print()
-                continue
-            elif homeroomTeacher not in teacherList.keys():
-                print("그런 선생님은 없습니다.")
-                print("'ls'를 입력해 정확한 선생님 성함을 확인하세요.")
-                print()
-                print()
-                continue
-            else:
-                print()
-                homeroomTeacherSerial = teacherList[homeroomTeacher]
-                break
+        if homeroomTeacher == "ls":
+            for teacher in teacherList.keys():
+                print(f"'{teacher}'", end=" ")
+            print()
+            print()
+            continue
+        elif homeroomTeacher not in teacherList.keys():
+            print("그런 선생님은 없습니다.")
+            print("'ls'를 입력해 정확한 선생님 성함을 확인하세요.")
+            print()
+            print()
+            continue
+        else:
+            print()
+            homeroomTeacherSerial = teacherList[homeroomTeacher]
+            break
 
     while True:
         print("교실정보를 입력해주십시오. 'ls'를 입력해 전체 리스트를 볼 수 있습니다.")
@@ -359,9 +359,10 @@ if taskMode == "신청":
             classSerial = classData['id']
             roomTeacher = classData['tcher']
             roomTeacherSerial = None
+            print(classSerial)
 
         print()
-            
+
         if roomTeacher in teacherList.keys():
             print(f"기본 지도교사는 {roomTeacher} 선생님입니다.")
             defaultRoomTeacherBool = input(f"이 분을 지도교사로 선택하시겠습니까? [y/n]: ")
@@ -375,7 +376,7 @@ if taskMode == "신청":
 
             print()
 
-        while True:          
+        while True:
             if roomTeacherSerial == None:
                 print("지도교사 선생님의 성함을 입력해주십시오. 'ls'를 입력해 전체 리스트를 볼 수 있습니다.")
                 roomTeacher = input("지도교사: ")
@@ -404,7 +405,7 @@ if taskMode == "신청":
 
         print()
         print("<< 신청 단계 >>")
-        
+
         while True:
             print("몇 교시에 신청하고 싶으신가요?")
             try:
@@ -423,11 +424,11 @@ if taskMode == "신청":
                 'cont': reason,
                 'date': datetime.now().strftime("%Y%m%d")
             }
-            
+
             print(f"{period}교시에 신청중... ", end="")
             serial = apply(**user_data, **form_data)
 
-            if serial <= 0:
+            if int(serial) <= 0:
                 print("실패했습니다. 다시 시도해보세요.")
                 print()
                 continue
@@ -437,7 +438,7 @@ if taskMode == "신청":
                 print(f"{period}교시에 {classInput}(으)로 신청되었습니다.")
                 print(f"고유번호는 {serial}입니다.")
                 print("고유번호를 통해 자습을 취소할 수 있습니다. 번호를 숙지하십시오.")
-            
+
             moreApply = input("이 교실로 다른 교시에 신청하시겠습니까? [y/n]: ")
             if moreApply == "y" or moreApply == "":
                 print()
@@ -481,7 +482,7 @@ elif taskMode == "신청취소":
             moreCancel = True
         else:
             moreCancel = False
-        
+
         print()
         if moreCancel:
             continue
@@ -489,9 +490,6 @@ elif taskMode == "신청취소":
             print("프로그램을 종료합니다")
             exit()
 
-
-        
-        
 
 print("음.. 여긴 실행되면 안 되는데...?")
 print("에러입니다. 다시 시작하세요^^.")

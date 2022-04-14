@@ -183,6 +183,7 @@ def fetchClassInfo(id, pw):
 
         return rmlst
 
+
 def isCredentialValid(id, pw):
     usr_data = {
         "id": id,
@@ -198,4 +199,6 @@ def isCredentialValid(id, pw):
             return False
         else:
             return True
-            
+
+
+print(fetchTeacherID("enc2586", "rhkgkrrh1!"))
